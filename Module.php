@@ -11,10 +11,6 @@ class Module
 
     protected function initAutoloader()
     {
-        AutoloaderFactory::factory(array(
-            'Zend\Loader\ClassMapAutoloader' => array(
-                __DIR__ . '/autoload_classmap.php',
-            )
-        ));
+        require __DIR__ . '/autoload_register.php';
     }
 }
