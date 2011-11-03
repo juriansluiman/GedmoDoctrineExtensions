@@ -2,6 +2,8 @@
 
 namespace GedmoDoctrineExtensions;
 
+use Zend\Loader\AutoloaderFactory;
+
 class Module
 {
     public function init()
@@ -11,6 +13,10 @@ class Module
 
     protected function initAutoloader()
     {
-        require __DIR__ . '/autoload_register.php';
+        AutoloaderFactory::factory(array(
+            'Zend\Loader\ClassMapAutoloader' => array(
+                __DIR__ . '/autoload_classmap.php',
+            )
+        ));
     }
 }
