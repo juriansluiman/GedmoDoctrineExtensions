@@ -2,7 +2,8 @@
 
 namespace GedmoDoctrineExtensions;
 
-use Zend\Loader\AutoloaderFactory;
+use Zend\Config\Config,
+    Zend\Loader\AutoloaderFactory;
 
 class Module
 {
@@ -18,5 +19,10 @@ class Module
                 __DIR__ . '/autoload_classmap.php',
             )
         ));
+    }
+
+    public function getConfig()
+    {
+        return new Config(include __DIR__ . '/configs/module.config.php');
     }
 }
