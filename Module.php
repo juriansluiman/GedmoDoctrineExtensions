@@ -2,14 +2,15 @@
 
 namespace GedmoDoctrineExtensions;
 
-use Zend\Config\Config,
-    Zend\Loader\AutoloaderFactory;
+use Zend\Loader\AutoloaderFactory,
+    Doctrine\Common\Annotations\AnnotationRegistry;
 
 class Module
 {
     public function init()
     {
         $this->initAutoloader();
+        $this->initDoctrineAnnotations();
     }
 
     protected function initAutoloader()
@@ -21,8 +22,13 @@ class Module
         ));
     }
 
-    public function getConfig()
+    /**
+     * Initialize the Doctrine Gedmo annotation mapping.
+     */
+    public function initDoctrineAnnotations()
     {
-        return new Config(include __DIR__ . '/configs/module.config.php');
+        $namespace = 'Gedmo\Mapping\Annotation';
+        $lib       = __DIR__ . '/library/Gedmo/lib/';
+        AnnotationRegistry::registerAutoloadNamespace($namespace, $lib);
     }
 }
