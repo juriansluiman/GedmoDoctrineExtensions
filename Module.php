@@ -2,33 +2,24 @@
 
 namespace GedmoDoctrineExtensions;
 
-use Zend\Loader\AutoloaderFactory,
+use Zend\Module\Consumer\AutoloaderProvider,
     Doctrine\Common\Annotations\AnnotationRegistry;
 
-class Module
+class Module implements AutoloaderProvider
 {
     public function init()
-    {
-        $this->initAutoloader();
-        $this->initDoctrineAnnotations();
-    }
-
-    protected function initAutoloader()
-    {
-        AutoloaderFactory::factory(array(
-            'Zend\Loader\ClassMapAutoloader' => array(
-                __DIR__ . '/autoload_classmap.php',
-            )
-        ));
-    }
-
-    /**
-     * Initialize the Doctrine Gedmo annotation mapping.
-     */
-    public function initDoctrineAnnotations()
     {
         $namespace = 'Gedmo\Mapping\Annotation';
         $lib       = __DIR__ . '/library/Gedmo/lib/';
         AnnotationRegistry::registerAutoloadNamespace($namespace, $lib);
+    }
+    
+    public function getAutoloaderConfig()
+    {
+        return array(
+            'Zend\Loader\ClassMapAutoloader' => array(
+                __DIR__ . '/autoload_classmap.php',
+            )
+        );
     }
 }
