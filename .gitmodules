@@ -1,3 +1,0 @@
-[submodule "library/Gedmo"]
-	path = library/Gedmo
-	url = git://github.com/l3pp4rd/DoctrineExtensions.git
